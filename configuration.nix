@@ -4,6 +4,7 @@
   imports =
     [ 
       ./hardware-configuration.nix
+      ./user.nix
     ];
   system.stateVersion = "20.09";
   boot = {
@@ -25,12 +26,6 @@
     challengeResponseAuthentication = false;
   };
   systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
-  users.users.david = {
-    isNormalUser = true;
-    home = "/home/david";
-    extraGroups = [ "wheel" "networkmanager" ];
-    openssh.authorizedKeys.keys = [ "" ];
-  };
   # Auto GC every morning
   nix.gc.automatic = false;
   services.cron.systemCronJobs = [ "0 3 * * * root /etc/admin/optimize-nix" ];
@@ -62,6 +57,5 @@
   #####################
   environment.systemPackages = with pkgs; [
     git
-    neovim
   ];
 }

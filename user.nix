@@ -24,6 +24,7 @@
       jq
       shfmt
       shellcheck
+      xclip
     ];
   };
 }

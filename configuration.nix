@@ -7,6 +7,7 @@
       ./user.nix
     ];
   system.stateVersion = "20.09";
+  time.timeZone = "Europe/Paris";
   boot = {
     loader.grub.enable = false;
     loader.raspberryPi.enable = true;

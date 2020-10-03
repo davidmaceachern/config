@@ -21,14 +21,13 @@
   services.openssh = {
     enable = true;
     permitRootLogin = "yes";
-    passwordAuthentication = true;
+    passwordAuthentication = false;
     challengeResponseAuthentication = false;
-    authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/nixos" ];
   };
   systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
-  users.users.nixpi = {
+  users.users.david = {
     isNormalUser = true;
-    home = "/home/nixpi";
+    home = "/home/david";
     extraGroups = [ "wheel" "networkmanager" ];
     openssh.authorizedKeys.keys = [ "" ];
   };
@@ -63,5 +62,6 @@
   #####################
   environment.systemPackages = with pkgs; [
     git
+    neovim
   ];
 }

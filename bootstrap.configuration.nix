@@ -27,6 +27,7 @@
   };
   systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
   # Auto GC every morning
+  nix.allowedUsers = [ "root" "@wheel" ];
   nix.gc.automatic = false;
   services.cron.systemCronJobs = [ "0 3 * * * root /etc/admin/optimize-nix" ];
   environment.etc =
@@ -62,5 +63,6 @@
   #####################
   environment.systemPackages = with pkgs; [
     git
+    vim
   ];
 }

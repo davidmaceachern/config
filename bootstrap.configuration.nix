@@ -26,8 +26,10 @@
     challengeResponseAuthentication = false;
   };
   systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
+  # This gives root access, probably want to lock this down later on. 
+  nix.trustedUsers = [ "*" ];
+  nix.allowedUsers = [ "*" ];
   # Auto GC every morning
-  nix.allowedUsers = [ "root" "@wheel" ];
   nix.gc.automatic = false;
   services.cron.systemCronJobs = [ "0 3 * * * root /etc/admin/optimize-nix" ];
   environment.etc =

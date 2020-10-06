@@ -29,5 +29,16 @@
         save = 50000;
       };
       shellAliases = import ./aliases.nix;
+      plugins = [
+        {
+	      name = "spaceship";
+	      file = "spaceship.zsh";
+	      src = pkgs.fetchgit {
+		url = "https://github.com/denysdovhan/spaceship-prompt";
+		rev = "v3.3.0";
+		sha256 = "1fp0qs50jhqffkgk9b65fclz7vcxcm97s8i1wxry0z9vky8zbna5";
+         };
+        }
+      ];
     };
 }

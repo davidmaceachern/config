@@ -11,6 +11,10 @@
      exa
      ytop
    ];
+  home.file = {
+#    ".zshrc".source = ./.config/zsh/zshrc; # empty rc file breaks zsh
+    ".zshrc.functions".source = ./.config/zsh/zshrc.functions;
+  };
 
   programs.zsh = {
       enable = true;
@@ -22,6 +26,17 @@
         save = 50000;
       };
       shellAliases = import ./aliases.nix;
+      plugins = [
+        {
+	      name = "spaceship";
+	      file = "spaceship.zsh";
+	      src = pkgs.fetchgit {
+		url = "https://github.com/denysdovhan/spaceship-prompt";
+		rev = "v3.3.0";
+		sha256 = "1fp0qs50jhqffkgk9b65fclz7vcxcm97s8i1wxry0z9vky8zbna5";
+         };
+        }
+     ];
   };
    
   programs.neovim = {
@@ -53,17 +68,11 @@
       unbind C-b
       set-option -g prefix C-a
       bind-key C-a send-prefix
-
       # split panes using | and -
       bind | split-window -h
       bind - split-window -v
       unbind '"'
       unbind %
     '';
-  };
-
-  home.file = {
-    ".zshrc".source = ./.config/zsh/zshrc;
-    ".zshrc.functions".source = ./.config/zsh/zshrc.functions;
   };
 }

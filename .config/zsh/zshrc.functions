@@ -1,0 +1,97 @@
+copy_ssh () {
+    xclip -sel clip < ~/.ssh/id_rsa.pub
+}
+
+quick_pull () {
+    git pull
+    cd --
+}
+
+quick-pull-multi-repo () {
+	export command=quick_pull
+
+	declare -a list=(
+	    "$HOME/github/config"
+	    "$HOME/github/website"
+	)
+	echo "###### Loading ######"
+
+	for d in "${list[@]}";
+	do
+	     (cd "$d" && $command)
+	done
+}
+
+quick_push () {
+    message="Quickly pushing"
+    git add .
+    git commit -m "$message"
+    git push
+}
+
+quick-push-multi-repo () {
+	message="This is an automated commit."
+	export command=quick_push
+	declare -a list=(
+	    "$HOME/github/config"
+	)
+	for d in "${list[@]}";
+	do
+	     (printf "\n" && printf "$d\n" && printf "\n" && cd "$d" && $command)
+	done
+}
+
+git-user-setup () {
+  git config --global user.name "David MacEachern"
+  git config --global user.email david.maceachern.tech@gmail.com
+}
+
+git-delete-branch () {
+  git branch -d branch_name
+}
+
+undo-last-commit () {
+  git reset HEAD~
+}
+########################
+# Amazon Web Services ##
+########################
+
+aws-account-created () {
+aws iam get-user | jq -r ".User.CreateDate[:10]"
+}
+
+aws-used-services () {
+## WARNING THIS INCURS COST
+aws ce get-cost-and-usage --time-period Start=$(date "+%Y-%m-01" -d "-1 Month"),End=$(date --date="$(date +'%Y-%m-01') - 1 second" -I) --granularity MONTHLY --metrics UsageQuantity --group-by Type=DIMENSION,Key=SERVICE | jq '.ResultsByTime[].Groups[] | select(.Metrics.UsageQuantity.Amount > 0) | .Keys[0]'
+}
+
+aws-serviced-cost-breakdown () {
+## WARNING THIS INCURS COST
+aws ce get-cost-and-usage --time-period Start=$(date "+%Y-%m-01"),End=$(date --date="$(date +'%Y-%m-01') + 1 month  - 1 second" -I) --granularity MONTHLY --metrics USAGE_QUANTITY BLENDED_COST  --group-by Type=DIMENSION,Key=SERVICE | jq '[ .ResultsByTime[].Groups[] | select(.Metrics.BlendedCost.Amount > "0") | { (.Keys[0]): .Metrics.BlendedCost } ] | sort_by(.Amount) | add'
+}
+
+aws-bucket-size () {
+for bucket in $(aws s3api list-buckets --query "Buckets[].Name" --output text); do aws cloudwatch get-metric-statistics --namespace AWS/S3 --metric-name BucketSizeBytes --dimensions Name=BucketName,Value=$bucket Name=StorageType,Value=StandardStorage --start-time $(date --iso-8601)T00:00 --end-time $(date --iso-8601)T23:59 --period 86400 --statistic Maximum | echo $bucket: $(numfmt --to si $(jq -r ".Datapoints[0].Maximum // 0")); done;
+}
+
+aws-bucket-cost () {
+for bucket in $(aws s3api list-buckets --query "Buckets[].Name" --output text --profile eleven-prod); do aws cloudwatch get-metric-statistics --namespace AWS/S3 --metric-name BucketSizeBytes --dimensions Name=BucketName,Value=$bucket Name=StorageType,Value=StandardStorage --start-time $(date --iso-8601)T00:00 --end-time $(date --iso-8601)T23:59 --period 86400 --statistic Maximum --profile eleven-prod | echo $bucket: \$$(jq -r "(.Datapoints[0].Maximum //
+ 0) * .023 / (1024*1024*1024) * 100.0 | floor / 100.0"); done;
+}
+
+aws-exposed-secrets () {
+aws lambda list-functions | jq -r '[.Functions[]|{name: .FunctionName, env: .Environment.Variables}]|.[]|select(.env|length > 0)'
+}
+
+aws-check-lambda-modified () {
+aws lambda list-functions | jq ".Functions | group_by(.Runtime)|[.[]|{ (.[0].Runtime): [.[]|{ name: .FunctionName, timeout: .Timeout, memory: .MemorySize }] }]"
+}
+
+aws-ec2-exposed () {
+aws ec2 describe-security-groups | jq '[ .SecurityGroups[].IpPermissions[] as $a | { "ports": [($a.FromPort|tostring),($a.ToPort|tostring)]|unique, "cidr": $a.IpRanges[].CidrIp } ] | [group_by(.cidr)[] | { (.[0].cidr): [.[].ports|join("-")]|unique }] | add'
+}
+
+aws-ec2-instances () {
+aws ec2 describe-instances | jq -r "[[.Reservations[].Instances[]|{ state: .State.Name, type: .InstanceType }]|group_by(.state)|.[]|{state: .[0].state, types: [.[].type]|[group_by(.)|.[]|{type: .[0], count: ([.[]]|length)}] }]"
+}

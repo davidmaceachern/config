@@ -1,23 +1,16 @@
 { config, pkgs, ... }:
 
 {
-  # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # Home Manager needs a bit of information about you and the
-  # paths it should manage.
   home.username = "davidmaceachern";
   home.homeDirectory = "/home/davidmaceachern";
-
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
   home.stateVersion = "20.09";
+  home.packages = with pkgs; [
+     ripgrep
+     exa
+     ytop
+   ];
 
   programs.zsh = {
       enable = true;
@@ -29,16 +22,48 @@
         save = 50000;
       };
       shellAliases = import ./aliases.nix;
-      plugins = [
-        {
-	      name = "spaceship";
-	      file = "spaceship.zsh";
-	      src = pkgs.fetchgit {
-		url = "https://github.com/denysdovhan/spaceship-prompt";
-		rev = "v3.3.0";
-		sha256 = "1fp0qs50jhqffkgk9b65fclz7vcxcm97s8i1wxry0z9vky8zbna5";
-         };
-        }
-      ];
-    };
+  };
+   
+  programs.neovim = {
+    enable = true;
+    vimAlias = true;
+    extraConfig = builtins.readFile ./.config/neovim/init.vim;
+    plugins = with pkgs.vimPlugins; [
+      # Appearance
+      gruvbox
+      vim-gitgutter
+      # Language Support
+      vim-nix
+      vim-javascript
+      rust-vim
+    ];
+  };
+
+  programs.tmux = {
+    enable = true;
+    clock24 = true;
+    historyLimit = 10000;
+    extraConfig = ''
+      # Set default shell
+      # set -g default-shell /home/davidmaceachern/.nix-profile/bin/zsh
+      set -g default-terminal "screen-256color"
+      # Enable mouse mode (tmux 2.1 and above)
+      set -g mouse on
+      # remap prefix from 'C-b' to 'C-a'
+      unbind C-b
+      set-option -g prefix C-a
+      bind-key C-a send-prefix
+
+      # split panes using | and -
+      bind | split-window -h
+      bind - split-window -v
+      unbind '"'
+      unbind %
+    '';
+  };
+
+  home.file = {
+    ".zshrc".source = ./.config/zsh/zshrc;
+    ".zshrc.functions".source = ./.config/zsh/zshrc.functions;
+  };
 }

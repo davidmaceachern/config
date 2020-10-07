@@ -1,16 +1,18 @@
-{ config, pkgs, ... }:
+{ config, pkgs, libs, ... }:
 
-{
+{ 
+  imports = [
+    ./cli.nix
+  ];
+
   programs.home-manager.enable = true;
 
   home.username = "davidmaceachern";
   home.homeDirectory = "/home/davidmaceachern";
   home.stateVersion = "20.09";
   home.packages = with pkgs; [
-     ripgrep
-     exa
-     ytop
-   ];
+    rust-analyzer
+  ];
   home.file = {
 #    ".zshrc".source = ./.config/zsh/zshrc; # empty rc file breaks zsh
     ".zshrc.functions".source = ./.config/zsh/zshrc.functions;
@@ -41,16 +43,40 @@
    
   programs.neovim = {
     enable = true;
+    package = pkgs.neovim-nightly;
+    viAlias = true;
     vimAlias = true;
+    vimdiffAlias = true;
+    withNodeJs = true;
+    withPython3 = true;
     extraConfig = builtins.readFile ./.config/neovim/init.vim;
     plugins = with pkgs.vimPlugins; [
       # Appearance
+     
       gruvbox
+
       vim-gitgutter
+
       # Language Support
+      
       vim-nix
       vim-javascript
+      vim-terraform
+
       rust-vim
+
+      coc-nvim
+      coc-rust-analyzer
+      coc-css
+      coc-eslint
+      coc-git
+      coc-html
+      coc-json
+      coc-prettier
+      coc-python
+      coc-tsserver
+
+      syntastic
     ];
   };
 

@@ -11,7 +11,6 @@
   home.homeDirectory = "/home/davidmaceachern";
   home.stateVersion = "20.09";
   home.packages = with pkgs; [
-    rust-analyzer
   ];
   home.file = {
 #    ".zshrc".source = ./.config/zsh/zshrc; # empty rc file breaks zsh
@@ -49,7 +48,36 @@
     vimdiffAlias = true;
     withNodeJs = true;
     withPython3 = true;
-    extraConfig = builtins.readFile ./.config/neovim/init.vim;
+    extraConfig = ''
+      Syntax on
+      set encoding=utf-8
+      set noerrorbells
+      set tabstop=4 softtabstop=4
+      set shiftwidth=4
+      set expandtab
+      set smartindent
+      set nowrap
+      set smartcase
+      set noswapfile
+      set nobackup
+      set undofile
+      set incsearch
+      set colorcolumn=80
+      highlight ColorColumn ctermbg=0 guibg=lightgrey
+      set rnu
+      set nu
+      set numberwidth=1
+      colorscheme gruvbox
+      " don't use arrowkeys
+      noremap <Up> <NOP>
+      noremap <Down> <NOP>
+      noremap <Left> <NOP>
+      noremap <Right> <NOP>
+      inoremap <Up>    <NOP>
+      inoremap <Down>  <NOP>
+      inoremap <Left>  <NOP>
+      inoremap <Right> <NOP>
+    '';
     plugins = with pkgs.vimPlugins; [
       # Appearance
      
@@ -66,7 +94,7 @@
       rust-vim
 
       coc-nvim
-      coc-rust-analyzer
+      # coc-rust-analyzer
       coc-css
       coc-eslint
       coc-git

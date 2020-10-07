@@ -1,7 +1,3 @@
-" Gutter Line Numberings
-set rnu
-set nu
-set numberwidth=1
 " don't use arrowkeys
 noremap <Up> <NOP>
 noremap <Down> <NOP>

@@ -61,12 +61,6 @@
     zsh
     home-manager
     htop
-    jq
-    ripgrep
-    graphviz
-    shfmt
-    shellcheck
-    xclip
   ];
   environment.shells = [ pkgs.zsh ];
   virtualisation.docker.enable = true;

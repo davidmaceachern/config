@@ -1,19 +1,41 @@
 { config, pkgs, ... }:
 {
   home.packages = with pkgs; [
+    # Cloud
+    terraform
+    heroku
+    awscli
+    docker-compose
+    # Bash
+    graphviz
+    shfmt
+    shellcheck
+    xclip
+    unzip
+    wget    
+    htop
+    jq
     exa
     ytop
     ripgrep
     curl
-    docker-compose
     du-dust
-    htop
-    jq
-    aws
-    terraform
+    # Nodejs
+    nodejs
+    # Rust
     rustup
-    terraform
-    unzip
-    wget
+    rust-analyzer
+    cargo-audit
+    cargo-asm
+    cargo-bloat
+    cargo-deps
+    cargo-edit
+    cargo-expand
+    cargo-flamegraph
+    cargo-geiger
+    cargo-generate
+    cargo-udeps
+    cargo-watch
+    cargo-web
   ];
 }

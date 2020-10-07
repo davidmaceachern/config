@@ -44,7 +44,7 @@
     withNodeJs = true;
     withPython3 = true;
     extraConfig = ''
-      Syntax on
+      syntax on
       set encoding=utf-8
       set noerrorbells
       set tabstop=4 softtabstop=4
@@ -89,7 +89,7 @@
       rust-vim
 
       coc-nvim
-      # coc-rust-analyzer
+      coc-rust-analyzer
       coc-css
       coc-eslint
       coc-git

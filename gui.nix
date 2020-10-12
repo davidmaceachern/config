@@ -1,8 +1,9 @@
 { config, pkgs, ... }:
 {
   home.packages = with pkgs; [
-    ripcord
-    slack
+    brave
     discord
+    slack
+    ripcord
   ];
 }

@@ -3,10 +3,11 @@
 { 
   imports = [
     ./cli.nix
+    ./gui.nix
   ];
 
   programs.home-manager.enable = true;
-
+  nixpkgs.config.allowUnfree = true;
   home.username = "davidmaceachern";
   home.homeDirectory = "/home/davidmaceachern";
   home.stateVersion = "20.09";

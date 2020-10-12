@@ -9,6 +9,9 @@
   uuuuu = "cd ../../../../..";
   uuuuuu = "cd ../../../../../..";
   # Git
+  gst = "git status";
+  gp = "git pull";
+  gpu = "git push";
   git-nevermind = "git-abort ; git reset . ; git checkout . ; git clean -f -d";
   gol = "git log --oneline";
   gsu = "git push --set-upstream origin";

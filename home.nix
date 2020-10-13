@@ -5,9 +5,10 @@
     ./cli.nix
     ./gui.nix
   ];
-
+  
   programs.home-manager.enable = true;
   nixpkgs.config.allowUnfree = true;
+
   home.username = "davidmaceachern";
   home.homeDirectory = "/home/davidmaceachern";
   home.stateVersion = "20.09";
@@ -18,22 +19,44 @@
     ".zshrc.functions".source = ./.config/zsh/zshrc.functions;
   };
 
+#  home.sessionVariables = {
+#        TERMINAL = "alacritty";
+#    };
+  
+  programs.bash = {
+      enable = true;
+  };
+
   programs.zsh = {
       enable = true;
       enableCompletion = true;
       enableAutosuggestions = true;
       shellAliases = import ./aliases.nix;
+
       plugins = [
         {
 	      name = "spaceship";
 	      file = "spaceship.zsh";
 	      src = pkgs.fetchgit {
-		url = "https://github.com/denysdovhan/spaceship-prompt";
-		rev = "v3.3.0";
-		sha256 = "1fp0qs50jhqffkgk9b65fclz7vcxcm97s8i1wxry0z9vky8zbna5";
-         };
+            url = "https://github.com/denysdovhan/spaceship-prompt";
+		    rev = "v3.3.0";
+		    sha256 = "1fp0qs50jhqffkgk9b65fclz7vcxcm97s8i1wxry0z9vky8zbna5";
+          };
         }
-     ];
+      ];
+
+      sessionVariables = {
+        ZSH_TMUX_AUTOSTART_ONCE = true;
+        ZSH_TMUX_AUTOCONNECT = true; # the default anyway
+        ZSH_TMUX_UNICODE = true;
+      };
+
+      oh-my-zsh = { 
+        enable = true;
+        plugins = [ 
+          "tmux"
+        ];
+      };
   };
    
   programs.neovim = {
@@ -108,7 +131,36 @@
     enable = true;
     clock24 = true;
     historyLimit = 10000;
+
+    plugins = with pkgs.tmuxPlugins; [
+      sensible  # default settings
+      {
+        plugin = resurrect; # save: bindkey ctrl+s restore: bindkey ctrl+r
+        extraConfig = "set -g @resurrect-strategy-nvim 'session'";
+      }
+      {
+        plugin = continuum; # auto save/restore upon restart
+        extraConfig = ''
+          set -g @continuum-restore 'on'
+          # set -g @continuum-save-interval '60' # minutes
+        '';
+      }
+      open      # open things
+      yank      # copy to system clipboard
+    ];
+
     extraConfig = ''
+      set-window-option -g automatic-rename on
+      
+      # Plugins
+      # set -g @continuum-restore 'on'
+
+     # run-shell ${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
+     # run-shell ${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux
+     # run-shell ${pkgs.tmuxPlugins.sensible}/share/tmux-plugins/sensible/sensible.tmux
+     # run-shell ${pkgs.tmuxPlugins.open}/share/tmux-plugins/open/open.tmux
+     # run-shell ${pkgs.tmuxPlugins.yank}/share/tmux-plugins/yank/yank.tmux
+      
       # Set default shell
       # set -g default-shell /home/davidmaceachern/.nix-profile/bin/zsh
       set -g default-terminal "screen-256color"

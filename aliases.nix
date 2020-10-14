@@ -1,5 +1,7 @@
 {
   hms = "home-manager switch";
+  v = "vim";
+  til = "vim ~/github/notes/TIL.md";
   c = "clear";
   hdn = "ls -la";
   u = "cd ..";
@@ -10,6 +12,7 @@
   uuuuuu = "cd ../../../../../..";
   # Git
   gst = "git status";
+  ga = "git add .";
   gp = "git pull";
   gpu = "git push";
   git-nevermind = "git-abort ; git reset . ; git checkout . ; git clean -f -d";

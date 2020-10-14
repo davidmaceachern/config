@@ -7,6 +7,7 @@
   ];
   
   programs.home-manager.enable = true;
+
   nixpkgs.config.allowUnfree = true;
 
   home.username = "davidmaceachern";
@@ -18,13 +19,22 @@
 #    ".zshrc".source = ./.config/zsh/zshrc; # empty rc file breaks zsh
     ".zshrc.functions".source = ./.config/zsh/zshrc.functions;
   };
-
 #  home.sessionVariables = {
 #        TERMINAL = "alacritty";
 #    };
-  
+
   programs.bash = {
       enable = true;
+  };
+
+  programs.bat = {
+    enable = true;
+  };
+
+  programs.git = {
+    enable = true;
+    userName = "David MacEachern";
+    userEmail = "maceacherndjh@gmail.com";
   };
 
   programs.zsh = {
@@ -67,9 +77,46 @@
     vimdiffAlias = true;
     withNodeJs = true;
     withPython3 = true;
+    plugins = with pkgs.vimPlugins; [
+      # Appearance
+     
+      gruvbox
+
+      vim-gitgutter
+      vim-airline
+
+      # Language Support
+      
+      vim-nix
+      vim-javascript
+      vim-terraform
+
+      vim-which-key
+
+      rust-vim
+
+      coc-nvim
+      coc-rust-analyzer
+      coc-css
+      coc-eslint
+      coc-git
+      coc-html
+      coc-json
+      coc-prettier
+      coc-python
+      coc-pairs
+      coc-tsserver
+      coc-explorer
+
+      rainbow
+      syntastic
+      vim-devicons
+    ];
+
     extraConfig = ''
+      ${builtins.readFile ./.config/neovim/coc.vim}
       syntax on
-      set encoding=utf-8
+      set encoding=UTF-8
       set noerrorbells
       set tabstop=4 softtabstop=4
       set shiftwidth=4
@@ -96,36 +143,17 @@
       inoremap <Down>  <NOP>
       inoremap <Left>  <NOP>
       inoremap <Right> <NOP>
+      " filefinder
+      set path+=**
+      set wildmenu
+      set wildignore+=**/node_modules/** 
+      set hidden
+      :nmap <space>e :CocCommand explorer<CR>
     '';
-    plugins = with pkgs.vimPlugins; [
-      # Appearance
-     
-      gruvbox
-
-      vim-gitgutter
-
-      # Language Support
-      
-      vim-nix
-      vim-javascript
-      vim-terraform
-
-      rust-vim
-
-      coc-nvim
-      coc-rust-analyzer
-      coc-css
-      coc-eslint
-      coc-git
-      coc-html
-      coc-json
-      coc-prettier
-      coc-python
-      coc-tsserver
-
-      syntastic
-    ];
   };
+
+  # coc-config for vim
+  home.file.".config/nvim/coc-settings.json".source = ./.config/neovim/coc-settings.json;
 
   programs.tmux = {
     enable = true;

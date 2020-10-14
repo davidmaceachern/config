@@ -7,6 +7,7 @@
     awscli
     docker-compose
     # Bash
+    bitwarden-cli
     graphviz
     shfmt
     shellcheck

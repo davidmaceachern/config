@@ -5,7 +5,7 @@
     ./cli.nix
     ./gui.nix
   ];
-  
+
   programs.home-manager.enable = true;
 
   nixpkgs.config.allowUnfree = true;
@@ -15,10 +15,12 @@
   home.stateVersion = "20.09";
   home.packages = with pkgs; [
   ];
+
   home.file = {
 #    ".zshrc".source = ./.config/zsh/zshrc; # empty rc file breaks zsh
     ".zshrc.functions".source = ./.config/zsh/zshrc.functions;
   };
+
 #  home.sessionVariables = {
 #        TERMINAL = "alacritty";
 #    };
@@ -55,18 +57,20 @@
         }
       ];
 
-      sessionVariables = {
-        ZSH_TMUX_AUTOSTART_ONCE = true;
-        ZSH_TMUX_AUTOCONNECT = true; # the default anyway
-        ZSH_TMUX_UNICODE = true;
-      };
-
       oh-my-zsh = { 
         enable = true;
         plugins = [ 
           "tmux"
         ];
       };
+
+      sessionVariables = {
+        ZSH_TMUX_AUTOSTART = true;
+        ZSH_TMUX_AUTOSTART_ONCE = false;
+        ZSH_TMUX_AUTOCONNECT = true; # the default anyway
+        ZSH_TMUX_UNICODE = true;
+      };
+
   };
    
   programs.neovim = {
@@ -79,7 +83,7 @@
     withPython3 = true;
     plugins = with pkgs.vimPlugins; [
       # Appearance
-     
+
       gruvbox
 
       vim-gitgutter
@@ -106,11 +110,10 @@
       coc-python
       coc-pairs
       coc-tsserver
-      coc-explorer
 
       rainbow
       syntastic
-      vim-devicons
+      vim-obsession
     ];
 
     extraConfig = ''
@@ -182,12 +185,11 @@
       
       # Plugins
       # set -g @continuum-restore 'on'
-
-     # run-shell ${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
-     # run-shell ${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux
-     # run-shell ${pkgs.tmuxPlugins.sensible}/share/tmux-plugins/sensible/sensible.tmux
-     # run-shell ${pkgs.tmuxPlugins.open}/share/tmux-plugins/open/open.tmux
-     # run-shell ${pkgs.tmuxPlugins.yank}/share/tmux-plugins/yank/yank.tmux
+      # run-shell ${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
+      # run-shell ${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux
+      # run-shell ${pkgs.tmuxPlugins.sensible}/share/tmux-plugins/sensible/sensible.tmux
+      # run-shell ${pkgs.tmuxPlugins.open}/share/tmux-plugins/open/open.tmux
+      # run-shell ${pkgs.tmuxPlugins.yank}/share/tmux-plugins/yank/yank.tmux
       
       # Set default shell
       # set -g default-shell /home/davidmaceachern/.nix-profile/bin/zsh

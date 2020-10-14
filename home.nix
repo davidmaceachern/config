@@ -21,6 +21,7 @@
     ".zshrc.functions".source = ./.config/zsh/zshrc.functions;
   };
 
+  home.file.".config/alacritty/alacritty.yml".source = ./.config/alacritty/alacritty.yml;
 #  home.sessionVariables = {
 #        TERMINAL = "alacritty";
 #    };

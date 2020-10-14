@@ -22,9 +22,10 @@
   };
 
   home.file.".config/alacritty/alacritty.yml".source = ./.config/alacritty/alacritty.yml;
-#  home.sessionVariables = {
-#        TERMINAL = "alacritty";
-#    };
+
+  home.sessionVariables = {
+        TERMINAL = "alacritty";
+    };
 
   programs.bash = {
       enable = true;

@@ -26,7 +26,7 @@
   home.sessionVariables = {
         TERMINAL = "alacritty";
     };
-
+  services.lorri.enable = true;
   programs.bash = {
       enable = true;
   };
@@ -74,7 +74,10 @@
       };
 
   };
-   
+
+  programs.direnv.enable = true;
+  programs.direnv.enableZshIntegration = true;
+
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-nightly;

@@ -34,6 +34,7 @@ quick-push-multi-repo () {
 	export command=quick_push
 	declare -a list=(
 	    "$HOME/github/config"
+	    "$HOME/github/website"
 	)
 	for d in "${list[@]}";
 	do

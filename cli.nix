@@ -6,7 +6,7 @@
     heroku
     awscli
     docker-compose
-    # Bash
+    # Tools 
     bitwarden-cli
     graphviz
     shfmt
@@ -23,6 +23,10 @@
     du-dust
     # Nodejs
     nodejs
+    # Nix
+    niv
+    lorri
+    direnv
     # Rust
     rustup
     rust-analyzer

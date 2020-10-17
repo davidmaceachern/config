@@ -4,6 +4,7 @@
   imports =
     [ 
       ./hardware-configuration.nix
+      ./vpn.nix
     ];
   system.stateVersion = "20.03";
   time.timeZone = "Europe/Paris";

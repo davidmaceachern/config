@@ -9,20 +9,20 @@ services.nginx = {
     recommendedTlsSettings = true;
 
     sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
- virtualHosts = {
-     "100.71.22.20" = {
-       ## Force HTTP redirect to HTTPS
-       ##forceSSL = true;
-       ## LetsEncrypt
-       ## enableACME = true;
+    virtualHosts = {
+       "100.71.22.20" = {
+         ## Force HTTP redirect to HTTPS
+         forceSSL = true;
+         ## LetsEncrypt
+         ## enableACME = true;
+      };
     };
-  };
 };
   services.nextcloud = {
     enable = true;
     hostName = "100.71.22.20";
     nginx.enable = true;
-    ## https = true;
+    https = true;
     autoUpdateApps.enable = true;
     autoUpdateApps.startAt = "05:00:00";
     config = {

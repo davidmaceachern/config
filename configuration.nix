@@ -22,10 +22,10 @@
     interfaces.wlan0.useDHCP = true;
     firewall.allowedTCPPorts = [ 80 443 ];
   };
-  security.acme = {
-    acceptTerms = true;
-    email = "david.maceachern.tech@gmail.com";
-};
+ ## security.acme = {
+ ##     acceptTerms = true;
+ ##     email = "david.maceachern.tech@gmail.com";
+ ## };
   services.openssh = {
     enable = true;
     permitRootLogin = "yes";

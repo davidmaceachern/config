@@ -12,9 +12,9 @@ services.nginx = {
  virtualHosts = {
      "100.71.22.20" = {
        ## Force HTTP redirect to HTTPS
-       forceSSL = true;
+       ##forceSSL = true;
        ## LetsEncrypt
-       enableACME = true;
+       ## enableACME = true;
     };
   };
 };
@@ -22,7 +22,7 @@ services.nginx = {
     enable = true;
     hostName = "100.71.22.20";
     nginx.enable = true;
-    https = true;
+    ## https = true;
     autoUpdateApps.enable = true;
     autoUpdateApps.startAt = "05:00:00";
     config = {

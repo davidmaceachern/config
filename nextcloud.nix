@@ -24,6 +24,7 @@
 
   services.nextcloud = {
     enable = true;
+    package = pkgs.nextcloud20;
     hostName = "127.0.0.1";
 #    nginx.enable = true;
 #    https = true;

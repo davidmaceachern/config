@@ -25,8 +25,11 @@
 
   home.sessionVariables = {
         TERMINAL = "alacritty";
-    };
+      };
+
+  services.gnome-keyring.enable = true;
   services.lorri.enable = true;
+
   programs.bash = {
       enable = true;
   };

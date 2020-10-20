@@ -1,38 +1,41 @@
 {config, pkgs, ...}:
 {
 
-services.nginx = {
-   enable = true;
-    recommendedGzipSettings = true;
-    recommendedOptimisation = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
+#services.nginx = {
+#   enable = true;
+#    recommendedGzipSettings = true;
+#    recommendedOptimisation = true;
+#    recommendedProxySettings = true;
+#    recommendedTlsSettings = true;
 
-    sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
-    virtualHosts = {
-       "100.71.22.20" = {
+#    sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
+#    virtualHosts = {
+#       "100.71.22.20" = {
          ## Force HTTP redirect to HTTPS
-         forceSSL = true;
+#         forceSSL = true;
          ## LetsEncrypt
          ## enableACME = true;
-      };
-    };
-};
+#      };
+#    };
+#  };
+
+  # TODO services.nextcloud.home #   Default: "/var/lib/nextcloud"
+  # TODO services.nextcloud.config.extraTrustedDomains ['ip one']
+
   services.nextcloud = {
     enable = true;
-    hostName = "100.71.22.20";
-    nginx.enable = true;
-    https = true;
+# hostName = "100.71.22.20";
+#    nginx.enable = true;
+#    https = true;
     autoUpdateApps.enable = true;
     autoUpdateApps.startAt = "05:00:00";
     config = {
-      overwriteProtocol = "https";
+#overwriteProtocol = "https";
       dbtype = "pgsql";
       dbuser = "nextcloud";
       dbhost = "/run/postgresql";
       dbname = "nextcloud";
       dbpassFile = "/var/nextcloud-db-pass";
-
       adminpassFile = "/var/nextcloud-admin-pass";
       adminuser = "admin";
  };

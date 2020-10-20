@@ -24,7 +24,7 @@
 
   services.nextcloud = {
     enable = true;
-# hostName = "100.71.22.20";
+    hostName = "127.0.0.1";
 #    nginx.enable = true;
 #    https = true;
     autoUpdateApps.enable = true;

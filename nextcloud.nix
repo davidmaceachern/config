@@ -1,7 +1,7 @@
 {config, pkgs, ...}:
 {
 
-#services.nginx = {
+# services.nginx = {
 #   enable = true;
 #    recommendedGzipSettings = true;
 #    recommendedOptimisation = true;
@@ -26,12 +26,12 @@
     enable = true;
     package = pkgs.nextcloud19;
     hostName = "127.0.0.1";
-#    nginx.enable = true;
-#    https = true;
+    nginx.enable = true;
+    https = true;
     autoUpdateApps.enable = true;
     autoUpdateApps.startAt = "05:00:00";
     config = {
-#overwriteProtocol = "https";
+      #overwriteProtocol = "https";
       dbtype = "pgsql";
       dbuser = "nextcloud";
       dbhost = "/run/postgresql";

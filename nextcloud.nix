@@ -39,7 +39,7 @@
       dbpassFile = "/var/nextcloud-db-pass";
       adminpassFile = "/var/nextcloud-admin-pass";
       adminuser = "admin";
-      extraTrustedDomains = ["100.92.76.61"];
+      extraTrustedDomains = ["100.92.76.61" "localhost"];
  };
 };
 

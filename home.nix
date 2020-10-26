@@ -145,6 +145,11 @@
       set nu
       set numberwidth=1
       colorscheme gruvbox
+      ########################
+      ## Keybindings
+      ########################
+      " Map the leader key to SPACE
+      let mapleader="\<SPACE>"
       " don't use arrowkeys
       noremap <Up> <NOP>
       noremap <Down> <NOP>
@@ -160,6 +165,20 @@
       set wildignore+=**/node_modules/** 
       set hidden
       :nmap <space>e :CocCommand explorer<CR>
+      " " Copy to clipboard
+      vnoremap  <leader>y  "+y
+      nnoremap  <leader>Y  "+yg_
+      nnoremap  <leader>y  "+y
+      nnoremap  <leader>yy  "+yy
+      " " Paste from clipboard
+      nnoremap <leader>p "+p
+      nnoremap <leader>P "+P
+      vnoremap <leader>p "+p
+      vnoremap <leader>P "+P
+      " 'ctrl + c' to copy to system clipboard
+      " vnoremap <C-c> "*y
+      " 'ctrl + v' to paste from system clipboard
+      " vnoremap <C-v> "*p
     '';
   };
 

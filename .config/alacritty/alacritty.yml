@@ -1,2 +1,4 @@
 window:
   startup_mode: Fullscreen
+env:
+  WAYLAND_DISPLAY: alacritty

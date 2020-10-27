@@ -49,6 +49,13 @@
       enableCompletion = true;
       enableAutosuggestions = true;
       shellAliases = import ./aliases.nix;
+      history = {
+        expireDuplicatesFirst = true;
+        ignoreDups = true;
+        save = 2000000;
+        size = 2000000;
+        path = "~/zsh_history";
+      };
 
       plugins = [
         {
@@ -126,6 +133,9 @@
 
     extraConfig = ''
       ${builtins.readFile ./.config/neovim/coc.vim}
+      """"""""""""""""""" 
+      " Appearance 
+      """"""""""""""""""" 
       syntax on
       set encoding=UTF-8
       set noerrorbells
@@ -145,9 +155,9 @@
       set nu
       set numberwidth=1
       colorscheme gruvbox
-      ########################
-      ## Keybindings
-      ########################
+      """"""""""""""""""" 
+      "  Keybindings
+      """"""""""""""""""" 
       " Map the leader key to SPACE
       let mapleader="\<SPACE>"
       " don't use arrowkeys
@@ -232,6 +242,11 @@
       bind - split-window -v
       unbind '"'
       unbind %
+      # Copy and Paste
+      bind-key -T copy-mode-vi v send-keys -X begin-selection
+      bind-key -T copy-mode-vi y send-keys -X copy-selection
+      bind-key -T copy-mode-vi r send-keys -X rectangle-toggle
+      bind -t vi-copy y copy-pipe "xclip -sel clip -i"
     '';
   };
 }

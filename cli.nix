@@ -21,6 +21,7 @@
     ripgrep
     curl
     du-dust
+    tree
     # Nodejs
     nodejs
     # Nix

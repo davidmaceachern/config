@@ -54,7 +54,7 @@
         ignoreDups = true;
         save = 2000000;
         size = 2000000;
-        path = "../../zsh_history";
+        path = "/home/davidmaceachern/zsh_history";
       };
 
       plugins = [

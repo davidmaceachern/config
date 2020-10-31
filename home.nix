@@ -219,15 +219,6 @@
 
     extraConfig = ''
       set-window-option -g automatic-rename on
-      
-      # Plugins
-      # set -g @continuum-restore 'on'
-      # run-shell ${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/resurrect.tmux
-      # run-shell ${pkgs.tmuxPlugins.continuum}/share/tmux-plugins/continuum/continuum.tmux
-      # run-shell ${pkgs.tmuxPlugins.sensible}/share/tmux-plugins/sensible/sensible.tmux
-      # run-shell ${pkgs.tmuxPlugins.open}/share/tmux-plugins/open/open.tmux
-      # run-shell ${pkgs.tmuxPlugins.yank}/share/tmux-plugins/yank/yank.tmux
-      
       # Set default shell
       # set -g default-shell /home/davidmaceachern/.nix-profile/bin/zsh
       set -g default-terminal "screen-256color"

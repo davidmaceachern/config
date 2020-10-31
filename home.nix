@@ -237,7 +237,7 @@
       bind-key -T copy-mode-vi v send-keys -X begin-selection
       bind-key -T copy-mode-vi y send-keys -X copy-selection
       bind-key -T copy-mode-vi r send-keys -X rectangle-toggle
-      bind -t vi-copy y copy-pipe "xclip -sel clip -i"
+      # bind -t vi-copy y copy-pipe "xclip -sel clip -i" <----- started causing issues loading config
     '';
   };
 }

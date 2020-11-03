@@ -1,13 +1,12 @@
 { config, pkgs, ... }:
 {
   home.packages = with pkgs; [
-    # Containers
-    docker 
-    k3s
     # Cloud
     terraform
     heroku
     awscli
+    k3s 
+    docker 
     docker-compose
     # Tools 
     bitwarden-cli

@@ -5,10 +5,12 @@
     terraform
     heroku
     awscli
-    k3s 
+    # k3s nix os specific
+    kubectl
     docker 
     docker-compose
     # Tools 
+    rename
     bitwarden-cli
     graphviz
     shfmt

@@ -83,6 +83,13 @@ in
   ];
   environment.shells = [ pkgs.zsh ];
   virtualisation.docker.enable = true;
+  security.sudo.configFile =
+    ''
+    Defaults:root,%wheel env_keep+=LOCALE_ARCHIVE
+    Defaults:root,%wheel env_keep+=NIX_PATH
+    Defaults lecture = never
+    '';
+  security.sudo.wheelNeedsPassword = false;
   #####################
   # Users
   #####################

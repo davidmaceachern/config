@@ -82,7 +82,6 @@
         ZSH_TMUX_AUTOCONNECT = true; # the default anyway
         ZSH_TMUX_UNICODE = true;
       };
-
   };
 
   programs.direnv.enable = true;

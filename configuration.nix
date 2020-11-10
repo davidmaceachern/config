@@ -1,5 +1,9 @@
 { config, libs, pkgs, ... }:
-
+let
+  unstableTarball =
+    fetchTarball
+      https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz;
+in
 {
   imports =
     [ 
@@ -7,6 +11,13 @@
       ./nextcloud.nix
       ./vpn.nix
     ];
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+      unstable = import unstableTarball {
+        config = config.nixpkgs.config;
+      };
+    };
+  };
   system.stateVersion = "20.03";
   time.timeZone = "Europe/Paris";
   boot = {
@@ -68,6 +79,7 @@
     zsh
     home-manager
     htop
+    unstable.k3s
   ];
   environment.shells = [ pkgs.zsh ];
   virtualisation.docker.enable = true;

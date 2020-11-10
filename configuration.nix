@@ -31,7 +31,7 @@ in
     useDHCP = false;
     interfaces.eth0.useDHCP = true;
     interfaces.wlan0.useDHCP = true;
-    firewall.allowedTCPPorts = [ 80 443 ];
+    firewall.allowedTCPPorts = [ 80 443 6443 ];
   };
   security.acme = {
       acceptTerms = true;
